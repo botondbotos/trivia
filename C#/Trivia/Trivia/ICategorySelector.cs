@@ -1,4 +1,4 @@
-﻿namespace UglyTrivia
+﻿namespace Trivia
 {
     public interface ICategorySelector
     {

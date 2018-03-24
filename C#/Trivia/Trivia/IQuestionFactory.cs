@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace UglyTrivia
+namespace Trivia
 {
     public interface IQuestionFactory
     {
-        LinkedList<string> GenerateQuestionsForCategory(QuestionCategory category);
+        List<LinkedList<string>> GenerateQuestionsForCategories();
     }
 }

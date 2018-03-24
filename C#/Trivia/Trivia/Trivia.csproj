@@ -67,10 +67,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAnsweringStrategy.cs" />
+    <Compile Include="DefaultBoard.cs" />
+    <Compile Include="DefaultGameRegion.cs" />
+    <Compile Include="DefaultQuestionFactory.cs" />
+    <Compile Include="GameRegion.cs" />
+    <Compile Include="IBoard.cs" />
+    <Compile Include="IGameRegion.cs" />
+    <Compile Include="IndiaCategorySelector.cs" />
+    <Compile Include="IndiaGameRegion.cs" />
+    <Compile Include="JapanBoard.cs" />
+    <Compile Include="KoreaCategorySelector.cs" />
+    <Compile Include="KoreaGameRegion.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="QuestionCategory.cs" />
     <Compile Include="RandomAnsweringStrategy.cs" />
-    <Compile Include="CategorySelector.cs" />
+    <Compile Include="DefaultCategorySelector.cs" />
     <Compile Include="ConsoleGameLogger.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />

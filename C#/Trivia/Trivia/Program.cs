@@ -1,6 +1,4 @@
-﻿using UglyTrivia;
-
-namespace Trivia
+﻿namespace Trivia
 {
     using System;
 
@@ -14,10 +12,9 @@ namespace Trivia
 
             var dice = new Dice();
             var consoleGameLogger = new ConsoleGameLogger();
-            var categorySelector = new CategorySelector();
-            var questionFactory = new QuestionFactory();
+            var defaultRegion = new DefaultGameRegion();
 
-            var game = new Game(consoleGameLogger, categorySelector, questionFactory);
+            var game = new Game(consoleGameLogger, defaultRegion);
             var randomAnsweringStrategy = new ConsoleAnsweringStrategy();
 
             var gameRunner = new GameRunner(dice, randomAnsweringStrategy, rand, game);

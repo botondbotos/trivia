@@ -1,7 +1,7 @@
-﻿namespace UglyTrivia
-{
-    using System;
+﻿using System;
 
+namespace Trivia
+{
     public class ConsoleGameLogger : IGameLogger
     {
         public void Log(string message)
