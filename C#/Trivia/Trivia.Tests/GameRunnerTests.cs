@@ -9,20 +9,34 @@ namespace Trivia.UnitTests
 {
     public class GameRunnerTests
     {
-        //[Test]
-        //public void GenerateTestData()
-        //{
-        //    for (int i = 0; i < 100; i++)
-        //    {
-        //        using (var gameOutput = File.CreateText($@"TestData\GoldenData_{i}.txt"))
-        //        {
-        //            Console.SetOut(gameOutput);
-        //            GameRunner.Main(new[] { i.ToString() });
+        private const string TestDataPath = @"c:\TestData\";
 
-        //            gameOutput.Flush();
-        //        }
-        //    }
-        //}
+        [Test]
+        public void GenerateTestData([Range(0, 99)] int testRunId)
+        {
+            if (!Directory.Exists(TestDataPath))
+            {
+                Directory.CreateDirectory(TestDataPath);
+            }
+
+            var filePath = Path.Combine(TestDataPath, $@"GoldenData_{testRunId}.txt");
+            if (!File.Exists(filePath))
+            {
+                using (var gameOutput = File.CreateText(filePath))
+                {
+                    Console.SetOut(gameOutput);
+                    GameRunner.Main(new[] { testRunId.ToString() });
+
+                    gameOutput.Flush();
+                }
+
+                Assert.Pass("Master data file created successfully.");
+            }
+            else
+            {
+                Assert.Pass("Master data already exists.");
+            }
+        }
 
         [Test]
         public void GenerateGoldenSource([Range(0, 99)]int seed)
@@ -33,12 +47,12 @@ namespace Trivia.UnitTests
             {
                 Console.SetOut(gameOutput);
 
-                // Act 
+                // Act
                 GameRunner.Main(new[] { seed.ToString() });
 
                 // Assert
                 var actualGameOutput = gameOutputStringBuilder.ToString();
-                var expectedGameOutput = File.ReadAllText($@"TestData\GoldenData_{seed}.txt");
+                var expectedGameOutput = File.ReadAllText($@"c:\TestData\GoldenData_{seed}.txt");
                 actualGameOutput.Should().BeEquivalentTo(expectedGameOutput);
             }
         }
