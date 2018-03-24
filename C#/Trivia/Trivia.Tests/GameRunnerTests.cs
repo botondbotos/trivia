@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using FluentAssertions;
-using NUnit.Framework;
-
-namespace Trivia.UnitTests
+﻿namespace Trivia.UnitTests
 {
+    using System;
+    using System.IO;
+    using System.Text;
+
+    using FluentAssertions;
+
+    using NUnit.Framework;
+
     public class GameRunnerTests
     {
         private const string TestDataPath = @"c:\TestData\";
@@ -39,7 +40,7 @@ namespace Trivia.UnitTests
         }
 
         [Test]
-        public void GenerateGoldenSource([Range(0, 99)]int seed)
+        public void CompareOutputAgainstGoldenSource([Range(0, 99)]int seed)
         {
             // Arrange
             var gameOutputStringBuilder = new StringBuilder();
