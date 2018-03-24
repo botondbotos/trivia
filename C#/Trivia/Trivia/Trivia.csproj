@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Trivia.GameRunner</StartupObject>
+    <StartupObject>Trivia.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,13 +66,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleAnsweringStrategy.cs" />
+    <Compile Include="RandomAnsweringStrategy.cs" />
     <Compile Include="CategorySelector.cs" />
     <Compile Include="ConsoleGameLogger.cs" />
+    <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameRunner.cs" />
+    <Compile Include="IAnsweringStrategy.cs" />
     <Compile Include="ICategorySelector.cs" />
     <Compile Include="IGameLogger.cs" />
     <Compile Include="IQuestionFactory.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionFactory.cs" />
   </ItemGroup>

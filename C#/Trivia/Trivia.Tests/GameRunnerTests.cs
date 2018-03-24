@@ -1,4 +1,6 @@
-﻿namespace Trivia.UnitTests
+﻿using UglyTrivia;
+
+namespace Trivia.UnitTests
 {
     using System;
     using System.IO;
@@ -26,7 +28,17 @@
                 using (var gameOutput = File.CreateText(filePath))
                 {
                     Console.SetOut(gameOutput);
-                    GameRunner.Main(new[] { testRunId.ToString() });
+
+                    var dice = new Dice();
+                    var consoleGameLogger = new ConsoleGameLogger();
+                    var categorySelector = new CategorySelector();
+                    var questionFactory = new QuestionFactory();
+                    var game = new Game(consoleGameLogger, categorySelector, questionFactory);
+                    var random = new Random(testRunId);
+                    var randomAnsweringStrategy = new RandomAnsweringStrategy(random);
+
+                    var gameRunner = new GameRunner(dice, randomAnsweringStrategy, random, game);
+                    gameRunner.Start();
 
                     gameOutput.Flush();
                 }
@@ -47,9 +59,18 @@
             using (var gameOutput = new StringWriter(gameOutputStringBuilder))
             {
                 Console.SetOut(gameOutput);
+                var dice = new Dice();
+                var consoleGameLogger = new ConsoleGameLogger();
+                var categorySelector = new CategorySelector();
+                var questionFactory = new QuestionFactory();
+                var game = new Game(consoleGameLogger, categorySelector, questionFactory);
+                var random = new Random(seed);
+                var randomAnsweringStrategy = new RandomAnsweringStrategy(random);
+
+                var gameRunner = new GameRunner(dice, randomAnsweringStrategy, random, game);
 
                 // Act
-                GameRunner.Main(new[] { seed.ToString() });
+                gameRunner.Start();
 
                 // Assert
                 var actualGameOutput = gameOutputStringBuilder.ToString();

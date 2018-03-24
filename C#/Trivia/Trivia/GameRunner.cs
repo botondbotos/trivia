@@ -5,25 +5,44 @@
 
     public class GameRunner
     {
-        private static bool notAWinner;
+        private readonly Dice dice;
+        private readonly IAnsweringStrategy answeringStrategy;
+        private readonly Random rand;
+        private bool isWinner;
+        private Game game;
 
-        public static void Main(string[] args)
+        public GameRunner(
+            Dice dice, 
+            IAnsweringStrategy answeringStrategy, 
+            Random rand,
+            Game game)
         {
-            Game aGame = new Game(new ConsoleGameLogger(), new CategorySelector(), new QuestionFactory());
+            this.dice = dice;
+            this.answeringStrategy = answeringStrategy;
+            this.rand = rand;
+            this.game = game;
+        }
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
-
-            var rand = args.Length > 0 && int.TryParse(args[0], out var seed) ? new Random(seed) : new Random();
+        public void Start()
+        {
+            AddPlayers();
 
             do
             {
-                aGame.MovePlayer(rand.Next(5) + 1);
+                var roll = this.dice.Roll(this.rand);
 
-                notAWinner = rand.Next(9) == 7 ? aGame.WrongAnswer() : aGame.WasCorrectlyAnswered();
+                this.game.MovePlayer(roll);
+
+                this.isWinner = !this.answeringStrategy.IsNotWinner(this.game);
             }
-            while (notAWinner);
+            while (!this.isWinner);
+        }
+
+        private void AddPlayers()
+        {
+            this.game.AddPlayer("Chet");
+            this.game.AddPlayer("Pat");
+            this.game.AddPlayer("Sue");
         }
     }
 }

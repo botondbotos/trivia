@@ -21,7 +21,6 @@
         int currentPlayer;
         bool isGettingOutOfPenaltyBox;
         private readonly ICategorySelector categorySelector;
-        private readonly IQuestionFactory questionFactory;
 
         public Game(
             IGameLogger logger,
@@ -30,7 +29,6 @@
         {
             this.logger = logger;
             this.categorySelector = categorySelector;
-            this.questionFactory = questionFactory;
 
             popQuestions = questionFactory.GenerateQuestionsForCategory("Pop");
             scienceQuestions = questionFactory.GenerateQuestionsForCategory("Science");
@@ -40,10 +38,10 @@
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            return HowManyPlayers() >= 2;
         }
 
-        public bool Add(string playerName)
+        public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
             places[HowManyPlayers()] = 0;
