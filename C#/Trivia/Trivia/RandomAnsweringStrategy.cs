@@ -1,7 +1,6 @@
 ﻿namespace Trivia
 {
     using System;
-    using UglyTrivia;
 
     public class RandomAnsweringStrategy : IAnsweringStrategy
     {

@@ -1,36 +1,30 @@
-﻿namespace UglyTrivia
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Trivia
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Trivia;
-
     public class Game
     {
         private readonly IGameLogger logger;
         private readonly List<Player> players = new List<Player>();
 
-        private readonly LinkedList<string> popQuestions;
-        private readonly LinkedList<string> scienceQuestions;
-        private readonly LinkedList<string> sportsQuestions;
-        private readonly LinkedList<string> rockQuestions;
+        private readonly List<
+            LinkedList<string>> allQuestions;
 
         private int currentPlayer;
         private bool isGettingOutOfPenaltyBox;
         private readonly ICategorySelector categorySelector;
+        private readonly IBoard board;
 
         public Game(
             IGameLogger logger,
-            ICategorySelector categorySelector,
-            IQuestionFactory questionFactory)
+            IGameRegion gameRegion)
         {
             this.logger = logger;
-            this.categorySelector = categorySelector;
-
-            popQuestions = questionFactory.GenerateQuestionsForCategory(QuestionCategory.Pop);
-            scienceQuestions = questionFactory.GenerateQuestionsForCategory(QuestionCategory.Science);
-            sportsQuestions = questionFactory.GenerateQuestionsForCategory(QuestionCategory.Sports);
-            rockQuestions = questionFactory.GenerateQuestionsForCategory(QuestionCategory.Rock);
+            this.categorySelector = gameRegion.CategorySelector;
+            this.board = gameRegion.Board;
+            var questionFactory = gameRegion.QuestionFactory;
+            allQuestions = questionFactory.GenerateQuestionsForCategories();
         }
 
         public bool IsPlayable()
@@ -75,7 +69,7 @@
 
         private void ExecuteMove(int roll)
         {
-            players[currentPlayer].LocationOnBoard += roll;
+            players[currentPlayer].LocationOnBoard = (players[currentPlayer].LocationOnBoard + roll) % board.Size;
 
             logger.Log(players[currentPlayer].Name
                        + "'s new location is "
@@ -86,22 +80,8 @@
 
         private void AskQuestion()
         {
-            var categoryForField = categorySelector.GetCategoryForField(players[currentPlayer].LocationOnBoard);
-            switch (categoryForField)
-            {
-                case QuestionCategory.Pop:
-                    GetNextQuestion(popQuestions);
-                    break;
-                case QuestionCategory.Science:
-                    GetNextQuestion(scienceQuestions);
-                    break;
-                case QuestionCategory.Sports:
-                    GetNextQuestion(sportsQuestions);
-                    break;
-                case QuestionCategory.Rock:
-                    GetNextQuestion(rockQuestions);
-                    break;
-            }
+            var categoryForField = players[currentPlayer].LocationOnBoard % allQuestions.Count;
+            GetNextQuestion(allQuestions[categoryForField]);
         }
 
         private void GetNextQuestion(LinkedList<string> questions)

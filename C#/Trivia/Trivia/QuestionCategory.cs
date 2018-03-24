@@ -1,4 +1,4 @@
-﻿namespace UglyTrivia
+﻿namespace Trivia
 {
     public enum QuestionCategory
     {
@@ -6,6 +6,8 @@
         Pop,
         Science,
         Sports,
-        Rock
+        Rock,
+        History,
+        Literature
     }
 }

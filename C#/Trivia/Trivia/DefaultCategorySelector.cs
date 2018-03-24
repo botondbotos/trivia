@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace UglyTrivia
+namespace Trivia
 {
-    public class CategorySelector : ICategorySelector
+    public class DefaultCategorySelector : ICategorySelector
     {
         private const int CategoryCount = 4;
 

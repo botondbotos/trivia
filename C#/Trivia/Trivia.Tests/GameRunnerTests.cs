@@ -1,15 +1,11 @@
-﻿namespace Trivia.UnitTests
+﻿using System;
+using System.IO;
+using System.Text;
+using FluentAssertions;
+using NUnit.Framework;
+
+namespace Trivia.Tests
 {
-    using System;
-    using System.IO;
-    using System.Text;
-
-    using FluentAssertions;
-
-    using NUnit.Framework;
-
-    using UglyTrivia;
-
     public class GameRunnerTests
     {
         private const string TestDataPath = @"c:\TestData\";
@@ -31,9 +27,7 @@
 
                     var dice = new Dice();
                     var consoleGameLogger = new ConsoleGameLogger();
-                    var categorySelector = new CategorySelector();
-                    var questionFactory = new QuestionFactory();
-                    var game = new Game(consoleGameLogger, categorySelector, questionFactory);
+                    var game = new Game(consoleGameLogger, new DefaultGameRegion());
                     var random = new Random(testRunId);
                     var randomAnsweringStrategy = new RandomAnsweringStrategy(random);
 
@@ -61,9 +55,7 @@
                 Console.SetOut(gameOutput);
                 var dice = new Dice();
                 var consoleGameLogger = new ConsoleGameLogger();
-                var categorySelector = new CategorySelector();
-                var questionFactory = new QuestionFactory();
-                var game = new Game(consoleGameLogger, categorySelector, questionFactory);
+                var game = new Game(consoleGameLogger, new DefaultGameRegion());
                 var random = new Random(seed);
                 var randomAnsweringStrategy = new RandomAnsweringStrategy(random);
 
