@@ -1,6 +1,4 @@
-﻿using UglyTrivia;
-
-namespace Trivia.UnitTests
+﻿namespace Trivia.UnitTests
 {
     using System;
     using System.IO;
@@ -9,6 +7,8 @@ namespace Trivia.UnitTests
     using FluentAssertions;
 
     using NUnit.Framework;
+
+    using UglyTrivia;
 
     public class GameRunnerTests
     {

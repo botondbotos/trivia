@@ -14,7 +14,7 @@
 
         public bool IsNotWinner(Game game)
         {
-            return this.rand.Next(9) == 7
+            return rand.Next(9) == 7
                 ? game.WrongAnswer()
                 : game.WasCorrectlyAnswered();
         }

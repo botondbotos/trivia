@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleAnsweringStrategy.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="QuestionCategory.cs" />
     <Compile Include="RandomAnsweringStrategy.cs" />
     <Compile Include="CategorySelector.cs" />
     <Compile Include="ConsoleGameLogger.cs" />

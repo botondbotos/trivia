@@ -107,5 +107,7 @@
     <Rule Id="SA1648" Action="Hidden" />
     <Rule Id="SA1652" Action="Hidden" />
     <Rule Id="SA1651" Action="Hidden" />
+    <Rule Id="SA1101" Action="Hidden" />
+    <Rule Id="SX1101" Action="Warning" />
   </Rules>
 </RuleSet>

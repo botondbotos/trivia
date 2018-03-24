@@ -1,6 +1,7 @@
 ﻿namespace Trivia
 {
     using System;
+    using System.Threading;
     using UglyTrivia;
 
     public class GameRunner
@@ -9,11 +10,11 @@
         private readonly IAnsweringStrategy answeringStrategy;
         private readonly Random rand;
         private bool isWinner;
-        private Game game;
+        private readonly Game game;
 
         public GameRunner(
-            Dice dice, 
-            IAnsweringStrategy answeringStrategy, 
+            Dice dice,
+            IAnsweringStrategy answeringStrategy,
             Random rand,
             Game game)
         {
@@ -27,22 +28,26 @@
         {
             AddPlayers();
 
+            var timer = new Timer(_ => IsGameTimedout = true, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMinutes(30));
+
             do
             {
-                var roll = this.dice.Roll(this.rand);
+                var roll = dice.Roll(rand);
 
-                this.game.MovePlayer(roll);
+                game.MovePlayer(roll);
 
-                this.isWinner = !this.answeringStrategy.IsNotWinner(this.game);
+                isWinner = !answeringStrategy.IsNotWinner(game);
             }
-            while (!this.isWinner);
+            while (!isWinner || IsGameTimedout);
         }
+
+        public bool IsGameTimedout { get; private set; }
 
         private void AddPlayers()
         {
-            this.game.AddPlayer("Chet");
-            this.game.AddPlayer("Pat");
-            this.game.AddPlayer("Sue");
+            game.AddPlayer("Chet");
+            game.AddPlayer("Pat");
+            game.AddPlayer("Sue");
         }
     }
 }
