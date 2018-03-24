@@ -2,6 +2,6 @@
 {
     public interface ICategorySelector
     {
-        string GetCategoryForField(int playerPlace);
+        QuestionCategory GetCategoryForField(int playerPlace);
     }
 }

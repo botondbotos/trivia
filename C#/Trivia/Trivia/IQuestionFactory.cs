@@ -4,6 +4,6 @@ namespace UglyTrivia
 {
     public interface IQuestionFactory
     {
-        LinkedList<string> GenerateQuestionsForCategory(string category);
+        LinkedList<string> GenerateQuestionsForCategory(QuestionCategory category);
     }
 }

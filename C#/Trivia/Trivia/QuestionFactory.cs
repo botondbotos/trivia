@@ -6,7 +6,7 @@
     {
         private const int QuestionCount = 50;
 
-        public LinkedList<string> GenerateQuestionsForCategory(string category)
+        public LinkedList<string> GenerateQuestionsForCategory(QuestionCategory category)
         {
             var questions = new LinkedList<string>();
             for (int i = 0; i < QuestionCount; i++)
